@@ -1,0 +1,47 @@
+= MongoTree
+
+This is a simple way to add parent / child relationships to a Rails model that uses MongoDB and the MongoRecord plugin (not the Mongo ActiveRecord plugin.)
+
+== Installation
+
+Gem:
+   
+  sudo gem install mongo_tree
+
+Plugin:
+
+  script/plugin install git://github.com/mully/mongo_tree.git
+  
+== Usage
+
+To use mongo tree, simply add the word "mongo_tree" to your model.  
+
+  class Taxon < MongoRecord::Base
+    mongo_Tree
+  end
+
+Add Child:
+  @root = Taxon.new({:name=>"ROOT", :content=>"ROOT content"})
+  @root.save
+  @child1 = Taxon.new({:name=>"Child", :content=>"Child content"})
+  @root << @child1
+  @grandchild = Taxon.new({:name=>"GrandChild", :content=>"Grand content"})
+  @child1 << @grandchild
+  
+Access Children:
+  @root.children #access all first level childrent
+  @root.descendants #access all descendants (children, grandchildren, etc)
+  @root.parent #parent object
+  @root.ancestors #all ancestors (parent, grandparents, etc)
+  
+Delete Children:
+  @root.remove!(@child1)  #remove child from root.  the child will be resaved in it's own root node.
+
+== References
+
+  http://mongodb.org
+  http://github.com/mongodb/mongo-activerecord-ruby/tree/master
+  http://www.koders.com/ruby/fid995C0ABC8DD9B624D7C4E4D9EE319F374E4CA7FA.aspx?s=cdef%3Atree#L11
+  http://wiki.apache.org/couchdb/How_to_store_hierarchical_data
+
+Copyright (c) 2009 Squeejee, released under the MIT license

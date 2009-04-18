@@ -12,9 +12,6 @@ module MongoTree
       fields :created_at
       fields :updated_at
       
-      @@fieldSep = '|'
-      @@recordSep = "\n"
-      
       class_eval <<-EOV
         include MongoTree::InstanceMethods
       EOV
@@ -23,6 +20,9 @@ module MongoTree
   end
   
   module InstanceMethods
+        
+    @@fieldSep = '|'
+    @@recordSep = "\n"
     
     def initialize(options={})   
       super   
@@ -115,7 +115,7 @@ module MongoTree
         children.length != 0
     end
 
-    # Returns a multi-dimensional arraoy of children objects and the level
+    # Returns a multi-dimensional array of children objects and the level
     # where level is the depth in the hierarchy.
     def descendants(max_level=nil)
       children=[]
@@ -213,11 +213,6 @@ module MongoTree
     def <=>(other)
         return +1 if other == nil
         self.name <=> other.name
-    end
-
-    # Freezes all nodes in the tree
-    def freeze_tree!
-        each {|node| node.freeze}
     end
     
     # Creates a dump representation
