@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README.rdoc</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README.rdoc</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README.rdoc
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Sat Apr 18 00:04:12 -0500 2009</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1><a href="../classes/MongoTree.html">MongoTree</a></h1>
+<p>
+This is a simple way to add parent / child relationships to a Rails model
+that uses MongoDB and the <a
+href="../classes/MongoRecord.html">MongoRecord</a> plugin (not the Mongo
+ActiveRecord plugin.)
+</p>
+<h2>Installation</h2>
+<p>
+Gem:
+</p>
+<pre>
+  sudo gem install mongo_tree
+</pre>
+<p>
+Plugin:
+</p>
+<pre>
+  script/plugin install git://github.com/mully/mongo_tree.git
+</pre>
+<h2>Usage</h2>
+<p>
+To use mongo tree, simply add the word &quot;mongo_tree&quot; to your
+model.
+</p>
+<pre>
+  class Taxon &lt; MongoRecord::Base
+    mongo_Tree
+  end
+</pre>
+<p>
+Add Child:
+</p>
+<pre>
+  @root = Taxon.new({:name=&gt;&quot;ROOT&quot;, :content=&gt;&quot;ROOT content&quot;})
+  @root.save
+  @child1 = Taxon.new({:name=&gt;&quot;Child&quot;, :content=&gt;&quot;Child content&quot;})
+  @root &lt;&lt; @child1
+  @grandchild = Taxon.new({:name=&gt;&quot;GrandChild&quot;, :content=&gt;&quot;Grand content&quot;})
+  @child1 &lt;&lt; @grandchild
+</pre>
+<p>
+Access Children:
+</p>
+<pre>
+  @root.children #access all first level childrent
+  @root.descendants #access all descendants (children, grandchildren, etc)
+  @root.parent #parent object
+  @root.ancestors #all ancestors (parent, grandparents, etc)
+</pre>
+<p>
+Delete Children:
+</p>
+<pre>
+  @root.remove!(@child1)  #remove child from root.  the child will be resaved in it's own root node.
+</pre>
+<h2>References</h2>
+<pre>
+  http://mongodb.org
+  http://github.com/mongodb/mongo-activerecord-ruby/tree/master
+  http://www.koders.com/ruby/fid995C0ABC8DD9B624D7C4E4D9EE319F374E4CA7FA.aspx?s=cdef%3Atree#L11
+  http://wiki.apache.org/couchdb/How_to_store_hierarchical_data
+</pre>
+<p>
+Copyright (c) 2009 Squeejee, released under the MIT license
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
