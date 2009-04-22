@@ -49,7 +49,7 @@ module MongoTree
     # children hierarchies in the tree.
     # E.g. root << child << grand_child
     def <<(child)
-        add(child)
+      add(child)
     end
 
     # Adds the specified child node to the receiver node.
@@ -57,14 +57,18 @@ module MongoTree
     # The child is added as the last child in the current
     # list of children for the receiver node.
     def add(child)
-        raise "Child already added" if child.parents.include?(self.id)
-        child.parents = []
-        child.parents << self.parents 
-        child.parents << self.id
-        child.parents.flatten!
-        child.save
-        return child
-
+      raise "Child already added" if child.parents.include?(self.id)
+      child.parents = []
+      child.parents << self.parents 
+      child.parents << self.id
+      child.parents.flatten!
+      child.save
+      return child
+    end
+    
+    def move_to_child_of(parent_id)
+      parent = self.class.find(parent_id)
+      parent << self
     end
 
     # Removes the specified child node from the receiver node.
