@@ -66,9 +66,15 @@ module MongoTree
       return child
     end
     
+    # Pass in a parent_id to move current object to the parent
     def move_to_child_of(parent_id)
       parent = self.class.find(parent_id)
       parent << self
+    end
+    
+    # Pass in a parent object to see if current object is a child of the parent
+    def is_child_of?(parent)
+      self.parents.include?(parent.id)
     end
 
     # Removes the specified child node from the receiver node.
