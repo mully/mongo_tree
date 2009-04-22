@@ -17,6 +17,9 @@ module MongoTree
       EOV
     end
     
+    def roots
+      self.find(:all).select {|t| t.parents.size == 0}
+    end
   end
   
   module InstanceMethods
