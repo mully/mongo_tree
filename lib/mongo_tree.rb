@@ -177,15 +177,15 @@ module MongoTree
     # children is accessed (see Tree#children).
     # If the key is not _numeric_, then it is assumed to be
     # the *name* of the child node to be returned.
-    def [](key)
-        raise "Key needs to be provided" if key == nil
-        
-        if key.kind_of?(Integer)
-          children[key]
-        else
-          descendants.select {|child, level| child.name == key}.first[0]
-        end
-    end
+    # def [](key)
+    #     raise "Key needs to be provided" if key == nil
+    #     
+    #     if key.kind_of?(Integer)
+    #       children[key]
+    #     else
+    #       descendants.select {|child, level| child.name == key}.first[0]
+    #     end
+    # end
 
     # Returns the total number of nodes in this tree, rooted
     # at the receiver node.
